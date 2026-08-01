@@ -1,0 +1,87 @@
+{
+  "data_counts": {
+    "student_rating_rows": 851,
+    "student_segments": 734,
+    "professional_rating_rows": 1025,
+    "professional_segments": 562,
+    "student_professional_common_segments": 444,
+    "original_dev_test_latency_rows": 131
+  },
+  "student_professional_agreement": {
+    "LQ": {
+      "pearson": 0.3693,
+      "spearman": 0.2604
+    },
+    "EXP": {
+      "pearson": 0.3768,
+      "spearman": 0.2217
+    },
+    "LAT": {
+      "pearson": 0.3429,
+      "spearman": 0.2023
+    }
+  },
+  "professional_correlations": {
+    "LQ__LAT": {
+      "pearson": 0.6416,
+      "spearman": 0.5214,
+      "n": 562
+    },
+    "EXP__LAT": {
+      "pearson": 0.6731,
+      "spearman": 0.5733,
+      "n": 562
+    },
+    "LQ__EXP": {
+      "pearson": 0.833,
+      "spearman": 0.6936,
+      "n": 562
+    },
+    "delay_seconds__LAT": {
+      "pearson": 0.6667,
+      "spearman": 0.6,
+      "n": 6
+    }
+  },
+  "original_split_correlations": {
+    "delay__LAT": {
+      "pearson": -0.2434,
+      "spearman": -0.2438,
+      "n": 64
+    },
+    "LQ__LAT": {
+      "pearson": 0.1702,
+      "spearman": 0.1237,
+      "n": 131
+    },
+    "EXP__LAT": {
+      "pearson": 0.1524,
+      "spearman": 0.1148,
+      "n": 131
+    },
+    "COMET__LAT": {
+      "pearson": 0.1917,
+      "spearman": 0.1173,
+      "n": 131
+    },
+    "KIWI__LAT": {
+      "pearson": 0.0984,
+      "spearman": 0.0858,
+      "n": 131
+    }
+  },
+  "rater_severity": {
+    "R05": {
+      "n": 463,
+      "LQ_mean": 2.0065,
+      "EXP_mean": 1.9762,
+      "LAT_mean": 2.0766
+    },
+    "R06": {
+      "n": 562,
+      "LQ_mean": 2.1708,
+      "EXP_mean": 2.532,
+      "LAT_mean": 2.4609
+    }
+  }
+}

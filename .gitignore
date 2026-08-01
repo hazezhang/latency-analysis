@@ -1,0 +1,121 @@
+# Credentials and local secrets
+.hf_token
+.secrets/
+.env
+.env.*
+*.pem
+*.key
+
+# Python and tool caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+env/
+venv/
+ENV/
+.cache/
+.hf_cache/
+.matplotlib_cache/
+.pycache_tmp/
+.tmp/
+.pytest_cache/
+
+# Local tooling and unrelated nested repositories
+.agents/
+.aris/
+AGENTS.md
+Auto-claude-code-research-in-sleep/
+hazezhang.github.io/
+
+# Historical submission kits, internal review logs, and superseded paper snapshots
+aaai26_paper_staging/
+aaai26_staging/
+eacl27_author_kit/
+eacl27_paper_staging 2.zip
+paper_assets/
+paper_revision_staging/
+refine-logs/
+RUN_AAAI_EXTENSION_ON_GPU.md
+TRAIN_V1_PLATFORM.md
+*.backup_*
+*_backup_*
+train2.py
+experiment_queue/
+upload_and_launch_*.sh
+
+# Legacy scripts tied to restricted identity mappings or internal infrastructure
+audit_r031_rater_data.py
+build_alignment_csvs.py
+normalize_professional_namespace.py
+prepare_r027_outer_folds.py
+score_test_recording_comet.py
+semantic_align_csvs.py
+
+# Model downloads and training checkpoints
+comet_models/
+checkpoints/
+checkpoints*/
+*.pt
+*.ckpt
+*.pth
+*.bin
+
+# Restricted source data, recordings, and evaluator material
+data/
+marked/
+professional interpreter/
+dev_set.json
+dev_set_norm.json
+test_set.json
+test_set_norm.json
+train_set.json
+train_set_norm.json
+merged_dataset.json
+normalization_stats.json
+r06_audit_comet.json
+rev-r06_review_checklist.csv
+*.aup3
+*.wav
+*.mp3
+*.m4a
+*.flac
+
+# Notebooks may contain embedded outputs or local credentials
+*.ipynb
+
+# Large experiment workspace. Keep only the canonical public audit artifacts.
+experiments/*
+!experiments/eacl_paper_canonical_20260728/
+!experiments/eacl_paper_canonical_20260728/**
+!experiments/eacl_rater_calibration_audit_20260728/
+!experiments/eacl_rater_calibration_audit_20260728/**
+!experiments/eacl_structural_neural_audit_20260728/
+!experiments/eacl_structural_neural_audit_20260728/**
+!experiments/eacl_structural_neural_audit_20260728_r2/
+!experiments/eacl_structural_neural_audit_20260728_r2/**
+experiments/eacl_rater_calibration_audit_20260728/rater_calibration_predictions.csv
+experiments/eacl_structural_neural_audit_20260728/structural_neural_predictions.csv
+experiments/eacl_structural_neural_audit_20260728_r2/structural_neural_predictions.csv
+
+# LaTeX build products; retain the checked-in final PDFs explicitly.
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+!eacl27_paper_staging/main.pdf
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+*~

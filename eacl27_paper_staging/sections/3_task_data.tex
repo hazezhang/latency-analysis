@@ -1,0 +1,57 @@
+For segment $s$, let $y_s$ denote the \emph{professional promptness score} (LAT in the archived rubric): the reverse-oriented professional judgment where a larger score means that the interpreted output is perceived as \emph{less} delayed. Let $d_s$ be segment-onset delay in seconds, $q_s^{\mathrm{LQ}}$ and $q_s^{\mathrm{EXP}}$ be human quality labels, and $\hat q_s^{\mathrm{LQ}}$, $\hat q_s^{\mathrm{EXP}}$ be automatic estimates. We report Pearson correlation, Spearman correlation, and mean squared error (MSE) under source-speech-group-held-out evaluation and interpreter-disjoint evaluation. Thus, a positive correlation means that a model recovers a higher versus lower promptness score; it does not mean longer delay receives a higher score.
+
+\subsection{Data and Timing}
+The primary cohort contains \CohortN\ segments from \SpeechGroupN\ speech groups and \InterpreterN\ interpreters: \ZhEnN\ Chinese-to-English and \EnZhN\ English-to-Chinese. A speech group contains one source speech and all included interpretations of that speech; holding out a group therefore prevents source-content overlap between training and evaluation. Group sizes range from 11 to 106 segments (median 37.5). Although small by standard ML-benchmark scale, shared-label SI data with aligned source--output pairs, timing records, and multidimensional professional ratings are difficult and costly to construct; this is a high-cost expert-annotation setting rather than conventional text classification. Each analysis unit is the source/interpreted-output pair retained in the scoring archive and keyed by source file and original segment identifier. Segment-onset delay is the archived interpreted-segment audio onset minus paired source-segment audio onset.
+
+The archive contains 679 segment identifiers with records from both primary evaluators. Of these, 632 have complete LQ, EXP, and promptness ratings from both evaluators and a numeric archived onset difference. The other 47 are outside this complete-case timing candidate set: 40 lack archived onset differences for both evaluators, and seven lack an R05 promptness rating. The primary analysis retains 622 of the 632 complete candidates whose recorded onset differences fall within $[0,20]$ s (mean 4.59, median 4.0). The remaining ten are excluded solely by the onset-range rule: eight are negative ($-95.295$ to $-1.149$ s), and two exceed 20 s (100 and 304.331 s). The archive does not preserve enough boundary provenance to assign an individual cause to these values. This range is an analysis filter, not a behavioral threshold. Descriptive bins are left-closed and right-open, except the final 10--20-second bin includes 20 seconds.
+
+Two senior professional interpreter evaluators, each with more than ten years of professional experience, provide the primary ratings. They had comparable professional experience and equivalent roles. Each evaluator uses integer anchors from 0 to 3 and rated the full shared cohort. Before formal analysis, the protocol specified their equal-weight mean as the aggregate target; neither evaluator was designated as more reliable, as a gold-standard rater, or as an adjudicator, and there was no third evaluator or adjudication stage. We call this the \emph{predefined two-rater professional aggregate}, or operational aggregate. Averaging produces the observed .5-point increments and .5--3.0 range. A provenance audit repaired a filename--identifier conflict before the corrected \CohortN-segment cohort and all reported analyses were regenerated. Promptness agreement is Pearson $.259$, Spearman $.261$, ICC$(2,1)=.236$, and quadratic-weighted kappa $.236$; exact agreement is 51.4\% and within-one-point agreement is 91.5\%.
+
+\begin{table}[t]
+\centering
+\small
+\caption{Primary shared-label cohort.}
+\label{tab:cohort}
+\begin{tabular}{>{\raggedright\arraybackslash}p{.58\columnwidth}>{\raggedright\arraybackslash}p{.31\columnwidth}}
+\toprule
+Property & Value \\
+\midrule
+Segments / speech groups / interpreters & \CohortN\ / \SpeechGroupN\ / \InterpreterN \\
+Chinese$\rightarrow$English segments & \ZhEnN\ \\
+English$\rightarrow$Chinese segments & \EnZhN\ \\
+Mean LQ, EXP, promptness target range & 0.5--3.0 \\
+Retained segment-onset delay & 0--20 s \\
+Outer-test speech-group size & 11--106 \\
+Delay-bin counts (0--2 / 2--4 / 4--6 / 6--10 / 10--20 s) & 82 / 202 / 151 / 138 / 49 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Professional Rubric and Protocol Record}
+Evaluators used the same analytic rubric with integer anchors from 0 to 3, with higher values representing better performance; averaging the two ratings produces 0.5-point increments in the shared target. Table~\ref{tab:rubric} reproduces the assessment dimensions and score direction. LQ concerns what was conveyed and how well it was expressed in the target language; EXP concerns delivery; the promptness score concerns the evaluator's experienced promptness, not a timestamp threshold. Consequently, a segment can have a short measured onset gap but a low promptness score if the interpretation loses the source, and a longer gap need not receive the minimum score if delivery remains coherent.
+
+\begin{table*}[t]
+\centering
+\small
+\caption{Professional analytic rubric. Individual ratings use integer anchors 0--3; the shared mean target has .5-point increments. Full anchor criteria appear in Appendix~A.}
+\label{tab:rubric}
+\begin{tabular}{>{\raggedright\arraybackslash}p{.18\textwidth}>{\raggedright\arraybackslash}p{.48\textwidth}>{\raggedright\arraybackslash}p{.25\textwidth}}
+\toprule
+Dimension & Assessment focus & Direction of score \\
+\midrule
+Language quality (LQ) & Adequacy and accuracy of conveyed content, together with well-formed target-language expression. & Higher is more accurate, complete, and linguistically well formed. \\
+Expressiveness (EXP) & Fluency, naturalness, and delivery of the interpretation. & Higher is more fluent and natural. \\
+Professional promptness (LAT) & How promptly the interpretation is experienced as following the source; reverse-coded with respect to experienced delay. & Higher is perceived as less delayed. \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+The retained rubric specifies integer anchors $\{0,1,2,3\}$ and verbal criteria; half-point values arise only after averaging individual ratings. Appendix~A gives the criteria, Appendix~B reports audit details, and Appendix~C illustrates two observed professional-comment cases.
+
+Both evaluators received the same written rubric before formal scoring. They jointly discussed example cases and completed a pilot calibration exercise, including the instruction that promptness concerned how promptly the interpretation was experienced as following the source and should be distinguished from LQ and EXP. Formal scoring then proceeded independently: both evaluators rated every retained segment and could not see each other's scores.
+
+Both used headphones. Segment order was randomized. For each segment, evaluators listened to synchronized source and interpretation audio while viewing the corresponding transcripts; replay was permitted, and calculated segment-onset delay values were never shown. Within an item, the numerical scoring order was fixed as LQ, then EXP, then promptness/LAT. Evaluators could revisit and revise earlier scores. Optional comments were entered only after all three numerical ratings and are used only for post-hoc qualitative analysis.
+
+The shared written instructions, joint pilot calibration, standardized presentation, full-cohort coverage, and independent blinded scoring make unequal task exposure or direct score sharing implausible explanations for disagreement. Its persistence is therefore consistent with evaluator-specific calibration. The fixed LQ$\rightarrow$EXP$\rightarrow$promptness sequence, same-session scoring, and permitted revision leave possible halo and fixed-order anchoring effects. The archive preserves per-segment source and interpreted text, numeric onset differences, scores, and optional comments, but not boundary-construction and onset-detection procedures or a manually validated timing subset. We therefore treat segment-onset delay as an archived onset-difference feature.
+
+\paragraph{Rater-aware sensitivity.} The Results section reports same-rater and cross-rater human-label prediction under the same held-out speech-group folds. Under the independent scoring protocol above, positive cross-rater association reflects transfer across evaluator score patterns rather than direct score sharing; its asymmetry motivates evaluator-specific calibration analysis.

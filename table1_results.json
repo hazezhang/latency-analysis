@@ -1,0 +1,22 @@
+{
+  "mean_baseline": {
+    "lq": 0.0,
+    "exp": 0.0
+  },
+  "vanilla_comet": {
+    "lq": 0.21107697270558196,
+    "exp": 0.04484337611460246
+  },
+  "frozen_linear": {
+    "lq": null,
+    "exp": null
+  },
+  "single_head": {
+    "lq": null,
+    "exp": null
+  },
+  "dual_head": {
+    "lq": 0.388,
+    "exp": 0.301
+  }
+}

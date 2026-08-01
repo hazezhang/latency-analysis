@@ -1,0 +1,26 @@
+% Native LaTeX fallback for the main comparison figure.
+% Horizontal position maps Pearson r in [0,.9] to x in [105,330].
+\setlength{\unitlength}{0.01in}
+\begin{picture}(342,360)
+\small
+\put(0,338){\textbf{(a) Source-speech-group held-out}}
+\put(105,202){\line(1,0){225}}
+\multiput(105,199)(50,0){5}{\line(0,1){6}}
+\put(101,186){\makebox(8,0){0.0}}\put(151,186){\makebox(8,0){0.2}}\put(201,186){\makebox(8,0){0.4}}\put(251,186){\makebox(8,0){0.6}}\put(301,186){\makebox(8,0){0.8}}
+\put(202,168){\makebox(40,0){Pearson $r$}}
+\put(0,300){Delay}\put(181,295){\makebox(7,0){$\bullet$}}\put(194,295){.318}
+\put(0,280){Pred. Q + delay}\put(217,280){\line(1,0){14}}\put(217,277){\line(0,1){6}}\put(231,277){\line(0,1){6}}\put(221,275){\makebox(7,0){$\bullet$}}\put(234,275){$.475\pm.026$}
+\put(0,260){Structure + delay}\put(260,255){\makebox(7,0){$\bullet$}}\put(273,255){.632}
+\put(0,240){Full model}\put(267,240){\line(1,0){6}}\put(267,237){\line(0,1){6}}\put(273,237){\line(0,1){6}}\put(267,235){\makebox(7,0){$\bullet$}}\put(280,235){$.658\pm.010$}
+\put(0,220){Human Q (reference)}\put(304,215){\makebox(7,0){$\circ$}}\put(317,215){.809}
+\put(0,145){\textit{Automatic rows: fixed-seed SD}} 
+\put(0,125){\textbf{(b) Interpreter-disjoint}}
+\put(105,32){\line(1,0){225}}
+\multiput(105,29)(50,0){5}{\line(0,1){6}}
+\put(101,16){\makebox(8,0){0.0}}\put(151,16){\makebox(8,0){0.2}}\put(201,16){\makebox(8,0){0.4}}\put(251,16){\makebox(8,0){0.6}}\put(301,16){\makebox(8,0){0.8}}
+\put(202,0){\makebox(40,0){Pearson $r$}}
+\put(0,100){Delay}\put(114,95){\makebox(7,0){$\bullet$}}\put(127,95){.048}
+\put(0,80){Pred. Q + delay}\put(179,80){\line(1,0){40}}\put(179,77){\line(0,1){6}}\put(219,77){\line(0,1){6}}\put(196,75){\makebox(7,0){$\bullet$}}\put(224,75){$.377\pm.080$}
+\put(0,60){Structure + delay}\put(230,55){\makebox(7,0){$\bullet$}}\put(243,55){.511}
+\put(0,40){Full model}\put(244,40){\line(1,0){10}}\put(244,37){\line(0,1){6}}\put(254,37){\line(0,1){6}}\put(245,35){\makebox(7,0){$\bullet$}}\put(258,35){$.573\pm.019$}
+\end{picture}

@@ -1,0 +1,17 @@
+section,metric,n,estimate,ci_low,ci_high
+professional_overall,LQ_LAT,549,0.6376,0.5775,0.6924
+professional_overall,EXP_LAT,549,0.6691,0.6102,0.722
+professional_overall,LQ_EXP,549,0.8306,0.7996,0.8589
+professional_overall,delay_LAT,134,-0.2547,-0.4184,-0.0919
+student_professional_agreement,LQ,548,0.3652,0.2905,0.4333
+student_professional_agreement,EXP,544,0.3104,0.2282,0.3889
+student_professional_agreement,LAT,515,0.1379,0.04,0.2348
+student_professional_text_matched_agreement,LQ,547,0.399,0.3302,0.4643
+student_professional_text_matched_agreement,EXP,537,0.3501,0.2716,0.4264
+student_professional_text_matched_agreement,LAT,511,0.1322,0.028,0.2324
+professional_direction_en-zh,LQ_LAT,150,0.7024,0.5956,0.7858
+professional_direction_en-zh,EXP_LAT,150,0.6723,0.561,0.7629
+professional_direction_en-zh,LQ_EXP,150,0.8664,0.8215,0.902
+professional_direction_zh-en,LQ_LAT,399,0.5795,0.5028,0.6482
+professional_direction_zh-en,EXP_LAT,399,0.6493,0.5754,0.7127
+professional_direction_zh-en,LQ_EXP,399,0.783,0.7379,0.8228

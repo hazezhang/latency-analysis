@@ -1,0 +1,309 @@
+{
+  "metadata": {
+    "seed": 20260711,
+    "bootstraps": 5000,
+    "unit": "segment",
+    "student_rating_rows": 851,
+    "student_segments": 734,
+    "professional_rating_rows": 1025,
+    "professional_segments": 549,
+    "student_professional_shared_segments": 548,
+    "student_professional_text_matched_segments": 547,
+    "student_multitext_segment_ids": 108,
+    "professional_multitext_segment_ids": 0,
+    "R05_R06_shared_segments": 463
+  },
+  "professional_only_overall": {
+    "n_segments": 549,
+    "LQ_LAT": {
+      "n": 549,
+      "estimate": 0.6376,
+      "ci95": [
+        0.5775,
+        0.6924
+      ],
+      "bootstrap_valid": 5000
+    },
+    "EXP_LAT": {
+      "n": 549,
+      "estimate": 0.6691,
+      "ci95": [
+        0.6102,
+        0.722
+      ],
+      "bootstrap_valid": 5000
+    },
+    "LQ_EXP": {
+      "n": 549,
+      "estimate": 0.8306,
+      "ci95": [
+        0.7996,
+        0.8589
+      ],
+      "bootstrap_valid": 5000
+    },
+    "delay_LAT": {
+      "n": 134,
+      "estimate": -0.2547,
+      "ci95": [
+        -0.4184,
+        -0.0919
+      ],
+      "bootstrap_valid": 5000
+    }
+  },
+  "professional_by_direction": {
+    "en-zh": {
+      "n_segments": 150,
+      "LQ_LAT": {
+        "n": 150,
+        "estimate": 0.7024,
+        "ci95": [
+          0.5956,
+          0.7858
+        ],
+        "bootstrap_valid": 5000
+      },
+      "EXP_LAT": {
+        "n": 150,
+        "estimate": 0.6723,
+        "ci95": [
+          0.561,
+          0.7629
+        ],
+        "bootstrap_valid": 5000
+      },
+      "LQ_EXP": {
+        "n": 150,
+        "estimate": 0.8664,
+        "ci95": [
+          0.8215,
+          0.902
+        ],
+        "bootstrap_valid": 5000
+      }
+    },
+    "zh-en": {
+      "n_segments": 399,
+      "LQ_LAT": {
+        "n": 399,
+        "estimate": 0.5795,
+        "ci95": [
+          0.5028,
+          0.6482
+        ],
+        "bootstrap_valid": 5000
+      },
+      "EXP_LAT": {
+        "n": 399,
+        "estimate": 0.6493,
+        "ci95": [
+          0.5754,
+          0.7127
+        ],
+        "bootstrap_valid": 5000
+      },
+      "LQ_EXP": {
+        "n": 399,
+        "estimate": 0.783,
+        "ci95": [
+          0.7379,
+          0.8228
+        ],
+        "bootstrap_valid": 5000
+      }
+    }
+  },
+  "student_professional_agreement": {
+    "LQ": {
+      "n": 548,
+      "estimate": 0.3652,
+      "ci95": [
+        0.2905,
+        0.4333
+      ],
+      "bootstrap_valid": 5000
+    },
+    "EXP": {
+      "n": 544,
+      "estimate": 0.3104,
+      "ci95": [
+        0.2282,
+        0.3889
+      ],
+      "bootstrap_valid": 5000
+    },
+    "LAT": {
+      "n": 515,
+      "estimate": 0.1379,
+      "ci95": [
+        0.04,
+        0.2348
+      ],
+      "bootstrap_valid": 5000
+    }
+  },
+  "student_professional_text_matched_agreement": {
+    "LQ": {
+      "n": 547,
+      "estimate": 0.399,
+      "ci95": [
+        0.3302,
+        0.4643
+      ],
+      "bootstrap_valid": 5000
+    },
+    "EXP": {
+      "n": 537,
+      "estimate": 0.3501,
+      "ci95": [
+        0.2716,
+        0.4264
+      ],
+      "bootstrap_valid": 5000
+    },
+    "LAT": {
+      "n": 511,
+      "estimate": 0.1322,
+      "ci95": [
+        0.028,
+        0.2324
+      ],
+      "bootstrap_valid": 5000
+    }
+  },
+  "R05_R06_calibration": {
+    "LQ": {
+      "n": 463,
+      "raw": {
+        "pearson": 0.4403,
+        "spearman": 0.421,
+        "mean_a": 2.0065,
+        "mean_b": 2.2095,
+        "mae_after_scale_alignment": 0.5011
+      },
+      "centered": {
+        "pearson": 0.4403,
+        "spearman": 0.421,
+        "mean_a": 0.0,
+        "mean_b": -0.0,
+        "mae_after_scale_alignment": 0.5743
+      },
+      "zscore": {
+        "pearson": 0.4403,
+        "spearman": 0.421,
+        "mean_a": 0.0,
+        "mean_b": -0.0,
+        "mae_after_scale_alignment": 0.8167
+      },
+      "mean_difference_b_minus_a": 0.203,
+      "mae_raw": 0.5011,
+      "bootstrap_ci95": {
+        "pearson": [
+          0.361,
+          0.5154
+        ],
+        "spearman": [
+          0.343,
+          0.4956
+        ],
+        "mean_difference_b_minus_a": [
+          0.1339,
+          0.27
+        ],
+        "mae_raw": [
+          0.4492,
+          0.5529
+        ]
+      }
+    },
+    "EXP": {
+      "n": 463,
+      "raw": {
+        "pearson": 0.3605,
+        "spearman": 0.3404,
+        "mean_a": 1.9762,
+        "mean_b": 2.5443,
+        "mae_after_scale_alignment": 0.676
+      },
+      "centered": {
+        "pearson": 0.3605,
+        "spearman": 0.3404,
+        "mean_a": 0.0,
+        "mean_b": -0.0,
+        "mae_after_scale_alignment": 0.6625
+      },
+      "zscore": {
+        "pearson": 0.3605,
+        "spearman": 0.3404,
+        "mean_a": -0.0,
+        "mean_b": -0.0,
+        "mae_after_scale_alignment": 0.9665
+      },
+      "mean_difference_b_minus_a": 0.568,
+      "mae_raw": 0.676,
+      "bootstrap_ci95": {
+        "pearson": [
+          0.2742,
+          0.4406
+        ],
+        "spearman": [
+          0.2557,
+          0.4196
+        ],
+        "mean_difference_b_minus_a": [
+          0.4968,
+          0.6371
+        ],
+        "mae_raw": [
+          0.6112,
+          0.7387
+        ]
+      }
+    },
+    "LAT": {
+      "n": 457,
+      "raw": {
+        "pearson": 0.0894,
+        "spearman": 0.081,
+        "mean_a": 2.0766,
+        "mean_b": 2.4486,
+        "mae_after_scale_alignment": 0.8009
+      },
+      "centered": {
+        "pearson": 0.0894,
+        "spearman": 0.081,
+        "mean_a": -0.0,
+        "mean_b": 0.0,
+        "mae_after_scale_alignment": 0.8212
+      },
+      "zscore": {
+        "pearson": 0.0894,
+        "spearman": 0.081,
+        "mean_a": -0.0,
+        "mean_b": 0.0,
+        "mae_after_scale_alignment": 1.099
+      },
+      "mean_difference_b_minus_a": 0.372,
+      "mae_raw": 0.8009,
+      "bootstrap_ci95": {
+        "pearson": [
+          -0.0053,
+          0.1818
+        ],
+        "spearman": [
+          -0.0125,
+          0.1715
+        ],
+        "mean_difference_b_minus_a": [
+          0.2823,
+          0.4639
+        ],
+        "mae_raw": [
+          0.7396,
+          0.8622
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+% EACL 2027 anonymous review draft.
+\documentclass[11pt]{article}
+\usepackage[review]{acl}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+% Compatibility with the local Tectonic 2021 kernel; a current kernel defines this internally.
+\makeatletter
+\providecommand{\MT@maybe@textcmd}[1]{#1}
+\makeatother
+\usepackage{inconsolata}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,array,booktabs}
+\input{generated/paper_results}
+
+\title{Predicting Professional Promptness Ratings in Simultaneous Interpreting from Text and Segment-Onset Delay}
+
+\author{Anonymous EACL Submission}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\input{sections/0_abstract}
+\end{abstract}
+
+\section{Introduction}
+\input{sections/1_introduction}
+\section{Related Work}
+\input{sections/2_related_work}
+\section{Task, Data, and Professional Rubric}
+\input{sections/3_task_data}
+\section{Quality-Associated Promptness Prediction}
+\input{sections/4_method}
+\section{Experiments and Analysis}
+\input{sections/5_experiments}
+\section{Conclusion}
+\input{sections/6_conclusion}
+
+% EACL main-content page boundary: the numbered paper ends within eight pages.
+\clearpage
+\section*{Limitations}
+\input{sections/7_limitations}
+\section*{Ethics Statement}
+\input{sections/8_ethics}
+\section*{Data and Code Availability}
+\input{sections/9_availability}
+
+\bibliography{references}
+
+\clearpage
+\appendix
+\input{sections/A_appendix}
+\end{document}

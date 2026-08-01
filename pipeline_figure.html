@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pipeline Figure</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap');
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro', sans-serif;
+      background: white;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+    
+    .pipeline {
+      width: 1600px;
+      height: 700px;
+      display: flex;
+      flex-direction: row;
+      gap: 80px;
+      align-items: flex-start;
+      position: relative;
+    }
+    
+    .column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .column-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    
+    .block {
+      width: 240px;
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid;
+      font-size: 14px;
+      font-weight: 500;
+      text-align: center;
+      line-height: 1.4;
+    }
+    
+    .data .block { background: #EAF2FF; border-color: #4C7DFF; }
+    .model .block { background: #EAF9F0; border-color: #37B26C; }
+    .eval .block { background: #FFF3E6; border-color: #FF9F43; }
+    
+    .arrow-down {
+      width: 1.5px;
+      height: 16px;
+      background: #666;
+      position: relative;
+    }
+    .arrow-down::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 4px solid transparent;
+      border-top-color: #666;
+      border-bottom: none;
+    }
+    
+    .arrow-horizontal {
+      position: absolute;
+      height: 1.5px;
+      background: #666;
+    }
+    .arrow-horizontal::after {
+      content: '';
+      position: absolute;
+      right: -4px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 4px solid transparent;
+      border-left-color: #666;
+      border-right: none;
+    }
+    
+    .column-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    
+    .flow-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+    
+    .flow-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .connector {
+      width: 1.5px;
+      height: 12px;
+      background: #666;
+      margin: 2px 0;
+    }
+    
+    .connector::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 0;
+      margin: 0 auto;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid #666;
+      margin-top: -1px;
+    }
+  </style>
+</head>
+<body>
+  <div class="pipeline">
+    <!-- DATA PIPELINE -->
+    <div class="column data">
+      <div class="column-title">DATA PIPELINE</div>
+      <div class="flow-group">
+        <div class="block">Simultaneous Interpreting Performance<br>(audio + transcript)</div>
+        <div class="connector"></div>
+        <div class="block">Semantic Segmentation<br>(segment-level SI units)</div>
+        <div class="connector"></div>
+        <div class="block">Professional Annotation<br>(LQ / EXP / LAT)</div>
+        <div class="connector"></div>
+        <div class="block">Annotated SI Corpus<br>(1,101 segments)</div>
+        <div class="connector"></div>
+        <div class="block">Talk-level Split<br>(train / dev / test)</div>
+      </div>
+    </div>
+    
+    <!-- MODEL -->
+    <div class="column model">
+      <div class="column-title">MODEL</div>
+      <div class="flow-group">
+        <div class="block">Source + Interpretation Pair</div>
+        <div class="connector"></div>
+        <div class="block">COMET-KIWI Encoder<br>(XLM-R)</div>
+        <div class="connector"></div>
+        <div class="block">Dual-head Regression<br>(LQ head / EXP head)</div>
+        <div class="connector"></div>
+        <div class="block">Predicted Scores<br>(ŝ<sub>LQ</sub>, ŝ<sub>EXP</sub>)</div>
+      </div>
+    </div>
+    
+    <!-- EVALUATION -->
+    <div class="column eval">
+      <div class="column-title">EVALUATION</div>
+      <div class="flow-group">
+        <div class="block">Human Ratings</div>
+        <div class="connector"></div>
+        <div class="block">Correlation Analysis<br>(Pearson / Spearman)</div>
+        <div class="connector"></div>
+        <div class="block">Human Consistency Ceiling<br>(ICC)</div>
+        <div class="connector"></div>
+        <div class="block">Disentanglement Analysis<br>(cross-dimension corr)</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Cross-column arrows -->
+  <svg style="position: absolute; top: 0; left: 40px; width: 1520px; height: 700px; pointer-events: none;">
+    <!-- Data col5 -> Model col1 -->
+    <defs>
+      <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="#666"/>
+      </marker>
+    </defs>
+    <line x1="400" y1="520" x2="720" y2="280" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+    <line x1="880" y1="520" x2="1200" y2="280" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+  </svg>
+</body>
+</html>

@@ -1,0 +1,5 @@
+# Install in the existing GPU environment used for the quality-model runs.
+numpy
+torch
+transformers
+simalign

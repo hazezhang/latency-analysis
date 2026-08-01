@@ -1,0 +1,9 @@
+{
+  "train_lq_mean": 2.165807560137457,
+  "train_exp_mean": 2.2354497354497354,
+  "test_samples": 87,
+  "lq_pearson": 0.0,
+  "exp_pearson": 0.0,
+  "lq_info": "Prediction std is zero (constant predictions)",
+  "exp_info": "Prediction std is zero (constant predictions)"
+}
