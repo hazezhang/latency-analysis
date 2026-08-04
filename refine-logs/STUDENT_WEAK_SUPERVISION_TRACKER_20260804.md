@@ -2,7 +2,7 @@
 
 | Run ID | 里程碑 | 目的 | 系统 / 变体 | 固定评测 | 指标 | 优先级 | 状态 | 备注 |
 |---|---|---|---|---|---|---|---|---|
-| SW0 | M0 | 数据与泄漏审计 | 重建 student-professional manifest 与 fold 映射 | 16-group 专业外层 folds | overlap、样本数、顺序唯一性 | MUST | TODO | 复用 `build_rater_aware_experiment_sets.py` 的文本排除规则。 |
+| SW0 | M0 | 数据与泄漏审计 | `run_student_weak_supervision_m0.py` 构建 per-outer-fold 学生训练集与 manifest | 16-group 专业外层 folds | overlap、样本数、顺序唯一性 | MUST | DONE | 专业 622 segments/16 groups；学生 raw 829 rows；每折 763--829 行，16/16 overlap=0。 |
 | SW1 | M1 | 专业基线 | S0 professional-only aggregate 双头 | 专业外层 test | LQ/EXP 全套质量指标 | MUST | TODO | 三 seed 前先做单 seed sanity。 |
 | SW2 | M1 | 学生直接迁移 | S1：仅学生原始 LQ/EXP 分数训练，无专业校准 | 同 SW1 | 同 SW1 | MUST | TODO | 固定为 raw-label transfer；不做学生内标准化/aggregate。 |
 | SW3 | M1 | 错误池化反例 | S2 raw student+professional pooling | 同 SW1 | 同 SW1 + 标度偏差 | MUST | TODO | 不作为部署候选。 |

@@ -7,7 +7,7 @@
 ## 已确认的起点与边界
 
 - 共享专业主队列由专业评分者对译员表现的评分构成，共 622 个片段、16 个 source-speech groups；主结果继续采用 source-speech-group-held-out 外层交叉验证，所有上游质量预测必须是该外层折的 OOF 预测。
-- 独立构建的学生弱监督预训练集也恰有 622 条可用评分行（R01=207、R02=73、R04=342），但这是学生评分行数，不是专业主队列的定义。构建时已排除与专业 dev/test 文本重叠的 207 行；该排除规则必须保留并重新审计。
+- 学生原始弱监督集有 829 条完整 LQ/EXP 评分行（R01=243、R02=102、R04=484），不是专业主队列的定义。旧固定 dev/test 切分在排除 207 条重叠行后剩 622 条；新的 16-fold 协议改为按每个专业 outer test speech 单独排除相同 source-target 对，每折保留 763--829 条学生训练行，且 16/16 folds overlap=0。
 - R05/R06 的单独标签有明显 evaluator-by-interpreter 标度差异。现有可严格对齐的双评分子集只有 125 行、5 个 speech groups 且仅 zh-en，故 rater-aware 结果只能是探索性分析，不能选择或替换主模型。
 - `file_id` 与 `original_segment_id` 足以恢复片段顺序。序列特征只能使用当前片段之前的观测量；跨 fold 统计量必须只由训练折拟合。
 - 已有非线性延迟、共享编码器多任务、rater-aware 数据集构建等代码。新工作先复用并统一协议，不把新的大模型作为首要变量。
@@ -36,7 +36,7 @@
 | ID | 系统 | 目的 | 地位 |
 |---|---|---|---|
 | S0 | professional-only, aggregate LQ/EXP | 当前可比基线 | 必跑 |
-| S1 | raw-student-only -> professional test | 仅以学生原始 LQ/EXP 分数训练同一架构；不做专业校准，直接测试专业外层 test | 必跑 |
+| S1 | raw-student-only -> professional test | 每个 outer fold 以该 fold 隔离后的 763--829 条学生原始 LQ/EXP 分数训练同一架构；不做专业校准，直接测试对应专业 outer test | 必跑 |
 | S2 | raw student + professional pooling | 明确的反例基线 | 必跑，但不作为部署候选 |
 | S3 | student pretrain -> professional calibration | 主要候选 | 必跑 |
 | S4a | shared encoder + separate student/professional heads | 最小多源模型：学生监督共享表示，专业 head 负责尺度校准 | 必跑 |
