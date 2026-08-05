@@ -1,8 +1,8 @@
 # M1 单 Seed Sanity 结果
 
-**日期**：2026-08-05  
-**远端**：`root@10.27.130.23:31675`，持久目录 `/122090786/process3_aaai_current`  
-**环境**：`.venv_aaai`，torch `2.4.1+cu121`，PEFT `0.13.2`，Transformers `4.46.3`，两张 NVIDIA A100-SXM4-40GB   
+**日期**：2026-08-05
+**远端**：`root@10.27.130.23:31675`，持久目录 `/122090786/process3_aaai_current`
+**环境**：`.venv_aaai`，torch `2.4.1+cu121`，PEFT `0.13.2`，Transformers `4.46.3`，两张 NVIDIA A100-SXM4-40GB
 **代码/配置**：`run_train_v1.py`，COMET-KIWI，双头 LQ/EXP，seed `20260804`，mean pooling，10 epochs，GPU batch 16，LoRA 从 epoch 2 解冻。
 
 ## 运行定义
