@@ -3,8 +3,9 @@
 | Run ID | 里程碑 | 目的 | 系统 / 变体 | 固定评测 | 指标 | 优先级 | 状态 | 备注 |
 |---|---|---|---|---|---|---|---|---|
 | SW0 | M0 | 数据与泄漏审计 | `run_student_weak_supervision_m0.py` 构建 per-outer-fold 学生训练集与 manifest | 16-group 专业外层 folds | overlap、样本数、顺序唯一性 | MUST | DONE | 专业 622 segments/16 groups；学生 raw 829 rows；每折 763--829 行，16/16 overlap=0。 |
-| SW1 | M1 | 专业基线 | S0 professional-only aggregate 双头 | 专业外层 test | LQ/EXP 全套质量指标 | MUST | TODO | 三 seed 前先做单 seed sanity。 |
-| SW2 | M1 | 学生直接迁移 | S1：仅学生原始 LQ/EXP 分数训练，无专业校准 | 同 SW1 | 同 SW1 | MUST | TODO | 固定为 raw-label transfer；不做学生内标准化/aggregate。 |
+| SW1 | M1 | 专业基线 sanity | S0 professional-only aggregate 双头 | professional dev（sanity only） | LQ/EXP Pearson、raw std | MUST | DONE | seed 20260804；best dev score=.7084；最终 dev LQ=.3154、EXP=.3286；未塌缩。 |
+| SW2 | M1 | 学生直接迁移 sanity | S1：仅学生原始 LQ/EXP 分数训练，无专业校准 | professional dev（sanity only） | LQ/EXP Pearson、raw std | MUST | DONE | outer_01 student train 807 行；best dev score=.5808；最终 dev LQ=.3622、EXP=.1775；未塌缩。正式 outer-test 不使用专业 dev 选模。 |
+| SW2-formal | M1 | 学生直接迁移正式外折 | S1：raw student fit + deterministic student-only dev；professional outer speech test | 16-group professional outer folds | LQ/EXP Pearson、MAE、MSE、raw std、fold summary | MUST | RUNNING | 16 folds；每折按 file_id 固定每 5 个文件取 1 个 student-only dev；fit/dev 与 professional outer-test text-pair overlap=0；无专业 calibration。远端双 A100 worker 已启动。 |
 | SW3 | M1 | 错误池化反例 | S2 raw student+professional pooling | 同 SW1 | 同 SW1 + 标度偏差 | MUST | TODO | 不作为部署候选。 |
 | SW4 | M1/M2 | 主弱监督候选 | S3 student pretrain -> professional calibration | 同 SW1 | 同 SW1 + 对 SW1 paired delta | MUST | TODO | 所有学生预训练样本须排除专业 dev/test 文本。 |
 | SW5 | M1/M2 | 最小多源候选 | S4a shared encoder + separate student/professional heads | 同 SW1 | 同 SW1 + 对 SW1 paired delta | MUST | TODO | 解释为共享表示学习与专业尺度校准。 |
