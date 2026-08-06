@@ -25,6 +25,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--gpu-batch-size", type=int, default=16)
     parser.add_argument("--num-workers", type=int, default=2)
     parser.add_argument("--seed", type=int, default=20260805)
+    parser.add_argument(
+        "--transfer",
+        choices=["full", "lora"],
+        default="full",
+        help="full transfers the student head; lora keeps a separate professional head.",
+    )
     parser.add_argument("--offline", action="store_true")
     parser.add_argument("--check-only", action="store_true")
     return parser
@@ -53,7 +59,12 @@ def main() -> int:
     state = checkpoint_state(args.student_checkpoint)
     # The buffers anchor predictions to the label domain. Keep the professional
     # train-set anchors created by run_train while transferring learned weights.
-    transferred = {key: value for key, value in state.items() if key not in {"lq_base", "exp_base"}}
+    if args.transfer == "full":
+        transferred = {key: value for key, value in state.items() if key not in {"lq_base", "exp_base"}}
+    else:
+        transferred = {key: value for key, value in state.items() if "lora_" in key}
+        if not transferred:
+            raise RuntimeError("S4a expected LoRA parameters in the student checkpoint")
     del state
 
     namespace = load_train_v1_symbols(args.notebook)
@@ -63,8 +74,12 @@ def main() -> int:
         def __init__(self, *model_args, **model_kwargs):
             super().__init__(*model_args, **model_kwargs)
             incompatible = self.load_state_dict(transferred, strict=False)
-            expected_missing = {"lq_base", "exp_base"}
-            if set(incompatible.missing_keys) != expected_missing or incompatible.unexpected_keys:
+            if args.transfer == "full":
+                valid = set(incompatible.missing_keys) == {"lq_base", "exp_base"}
+            else:
+                loaded = set(self.state_dict()) - set(incompatible.missing_keys)
+                valid = set(transferred).issubset(loaded)
+            if not valid or incompatible.unexpected_keys:
                 raise RuntimeError(
                     "S3 checkpoint mismatch: "
                     + json.dumps({
@@ -74,7 +89,7 @@ def main() -> int:
                 )
             transferred.clear()
             print(
-                f"[S3 Warm Start] loaded {args.student_checkpoint}; "
+                f"[{args.transfer.upper()} Warm Start] loaded {args.student_checkpoint}; "
                 "retained professional lq_base/exp_base"
             )
 
