@@ -2,9 +2,9 @@
 set -euo pipefail
 
 ROOT=/122090786/process3_aaai_current
-STUDENT_DATA=data/experiments/student_weak_supervision_s1_20260805
+STUDENT_DATA=${STUDENT_DATA_ROOT:-data/experiments/student_weak_supervision_strict_20260806}
 PROFESSIONAL_DATA=data/experiments/aaai_crossfitted_outer_quality_corrected
-OUT="$ROOT/experiments/student_weak_supervision_s4a_20260806"
+OUT="${OUT_ROOT:-$ROOT/experiments/student_weak_supervision_s4a_strict_20260806}"
 PY="$ROOT/.venv_aaai/bin/python"
 export HF_HOME="$ROOT/hf_cache"
 export HF_HUB_CACHE="$HF_HOME/hub"
@@ -18,7 +18,7 @@ run_fold() {
   local professional_model="$OUT/$fold/professional_model"
   mkdir -p "$student_model" "$professional_model"
   "$PY" run_train_v1.py --notebook train_v1.ipynb \
-    --train-data "$student_fold/student_raw_fit.json" --dev-data "$student_fold/student_raw_dev.json" \
+    --train-data "$student_fold/student_fit.json" --dev-data "$student_fold/student_dev.json" \
     --output-dir "$student_model" --pooling mean --num-epochs 10 --gpu-batch-size 16 --num-workers 2 \
     --seed 20260805 --offline
   "$PY" run_student_weak_supervision_s3.py --notebook train_v1.ipynb \
