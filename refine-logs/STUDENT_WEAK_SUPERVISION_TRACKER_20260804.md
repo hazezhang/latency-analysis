@@ -8,7 +8,7 @@
 | SW2 | M1 | 学生直接迁移 sanity | S1：仅学生原始 LQ/EXP 分数训练，无专业校准 | professional dev（sanity only） | LQ/EXP Pearson、raw std | MUST | DONE | outer_01 student train 807 行；best dev score=.5808；最终 dev LQ=.3622、EXP=.1775；未塌缩。正式 outer-test 不使用专业 dev 选模。 |
 | SW2-formal | M1 | 学生直接迁移正式外折 | S1：raw student fit + deterministic student-only dev；professional outer speech test | 16-group professional outer folds | LQ/EXP Pearson、MAE、MSE、raw std、fold summary | MUST | DONE | 16/16 folds、622 segments；raw student labels、无专业 calibration；fold-mean LQ r=.5334、EXP r=.3192；LQ MAE=.4897、EXP MAE=.6976。 |
 | SW3 | M1 | 错误池化反例 | S2 raw student+professional pooling | 同 SW1 | 同 SW1 + 标度偏差 | MUST | TODO | 不作为部署候选。 |
-| SW4 | M1/M2 | 主弱监督候选 | S3 student pretrain -> professional calibration | 同 SW1 | 同 SW1 + 对 SW1 paired delta | MUST | TODO | 所有学生预训练样本须排除专业 dev/test 文本。 |
+| SW4 | M1/M2 | 主弱监督候选 | S3 student pretrain -> professional calibration | 同 SW1 | 同 SW1 + 对 SW1 paired delta | MUST | DONE | 16/16 folds、622 segments、seed 20260805、fatal=0；LQ r=.6049、EXP r=.5196，均低于 S0（delta=-.0039/-.0160；7/16 正向；paired fold bootstrap CI 跨 0）；MAE=.4094/.3484。当前单 seed 不通过 quality gate。 |
 | SW5 | M1/M2 | 最小多源候选 | S4a shared encoder + separate student/professional heads | 同 SW1 | 同 SW1 + 对 SW1 paired delta | MUST | TODO | 解释为共享表示学习与专业尺度校准。 |
 | SW5b | M2 | 评分者类型敏感性 | S4b rater-type embedding + shared head | 同 SW1 | 同 SW1 | SHOULD | TODO | 仅在 S4a 通过 quality gate 后运行，列入附录。 |
 | SW6 | M2 | 学生排序敏感性 | S5 within-rater normalized/pairwise pretrain | 同 SW1 | 同 SW1 | SHOULD | TODO | 标签定义敏感性，不与 S1 混用。 |
