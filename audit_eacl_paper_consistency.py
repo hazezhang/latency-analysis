@@ -74,6 +74,7 @@ def main() -> None:
         "Interpreter-disjoint evaluation remains positive but heterogeneous.",
         "predefined two-rater professional aggregate",
         "Both evaluators received the same written rubric before formal scoring.",
+        "compensated at a rate of RMB 1,000 per hour for their professional evaluation work",
         "jointly discussed example cases and completed a pilot calibration exercise",
         "could not see each other's scores",
         "Both used headphones.",
@@ -90,6 +91,17 @@ def main() -> None:
         "Low structure-to-quality $R^2$ does not imply that raw quality contributes an orthogonal promptness signal",
         "possible halo and fixed-order anchoring effects",
         "do not independently validate the promptness construct",
+        "The scoring platform enforced the rubric rule LQ$=0\\Rightarrow$EXP$=0$ and promptness$=0$",
+        "17 of the \\CohortN\\ aggregate",
+        "segments (2.7\\%) contain one platform-constrained lower-bound triple",
+        "Appendix~D gives the model-card configuration",
+        "Appendix D: Quality Estimator Model Card",
+        "Appendix E: Reproducibility Details",
+        "The recorded execution environment used Python 3.10.",
+        "Source-speech uncertainty uses 10,000 bootstrap draws with RNG seed 20260726.",
+        "then enumerates all $2^{16}=65{,}536$ whole-group swaps",
+        "tested environment lock",
+        "requirements files",
     ]
     for phrase in required:
         if phrase not in all_tex:

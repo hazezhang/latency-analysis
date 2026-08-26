@@ -2,9 +2,8 @@
 set -euo pipefail
 
 ROOT=/122090786/process3_aaai_current
-STUDENT_DATA=${STUDENT_DATA_ROOT:-data/experiments/student_weak_supervision_strict_20260806}
-PROFESSIONAL_DATA=data/experiments/aaai_crossfitted_outer_quality_corrected
-OUT="${OUT_ROOT:-$ROOT/experiments/student_weak_supervision_s3_strict_20260806}"
+DATA_ROOT=data/experiments/aaai_crossfitted_outer_quality_corrected
+OUT="${OUT_ROOT:-$ROOT/experiments/student_weak_supervision_s0_20260805}"
 PY="$ROOT/.venv_aaai/bin/python"
 SEED="${SEED:-20260805}"
 export HF_HOME="$ROOT/hf_cache"
@@ -13,47 +12,30 @@ export TRANSFORMERS_CACHE="$HF_HOME/hub"
 
 run_fold() {
   local fold="$1"
-  local student_fold="$STUDENT_DATA/$fold"
-  local professional_fold="$PROFESSIONAL_DATA/$fold/final_outer"
-  local student_model="$OUT/$fold/student_model"
-  local calibrated_model="$OUT/$fold/calibrated_model"
-  mkdir -p "$student_model" "$calibrated_model"
-
+  local fold_dir="$DATA_ROOT/$fold/final_outer"
+  local model_dir="$OUT/$fold/model"
+  mkdir -p "$model_dir"
   "$PY" run_train_v1.py \
     --notebook train_v1.ipynb \
-    --train-data "$student_fold/student_fit.json" \
-    --dev-data "$student_fold/student_dev.json" \
-    --output-dir "$student_model" \
+    --train-data "$fold_dir/train.json" \
+    --dev-data "$fold_dir/dev.json" \
+    --output-dir "$model_dir" \
     --pooling mean \
     --num-epochs 10 \
     --gpu-batch-size 16 \
     --num-workers 2 \
     --seed "$SEED" \
     --offline
-
-  "$PY" run_student_weak_supervision_s3.py \
-    --notebook train_v1.ipynb \
-    --student-checkpoint "$student_model/best_model2.pt" \
-    --train-data "$professional_fold/train.json" \
-    --dev-data "$professional_fold/dev.json" \
-    --output-dir "$calibrated_model" \
-    --pooling mean \
-    --num-epochs 10 \
-    --gpu-batch-size 16 \
-    --num-workers 2 \
-    --seed "$SEED" \
-    --offline
-
   "$PY" evaluate_student_weak_supervision_s1.py \
     --notebook train_v1.ipynb \
-    --checkpoint-dir "$calibrated_model" \
-    --train-data "$professional_fold/train.json" \
-    --dev-data "$professional_fold/dev.json" \
-    --test-data "$professional_fold/predict.json" \
+    --checkpoint-dir "$model_dir" \
+    --train-data "$fold_dir/train.json" \
+    --dev-data "$fold_dir/dev.json" \
+    --test-data "$fold_dir/predict.json" \
     --export "$OUT/$fold/predictions_outer_test.json" \
     --pooling mean \
     --offline
-  find "$student_model" "$calibrated_model" -maxdepth 1 -type f \( -name 'checkpoint_epoch_*.pt' -o -name 'final_model2.pt' -o -name 'best_model2.pt' \) -delete
+  find "$model_dir" -maxdepth 1 -type f \( -name 'checkpoint_epoch_*.pt' -o -name 'final_model2.pt' -o -name 'best_model2.pt' \) -delete
 }
 
 run_worker() {
@@ -86,5 +68,5 @@ wait "$pid0"
 wait "$pid1"
 "$PY" run_student_weak_supervision_s1.py summarize \
   --predictions "$OUT" \
-  --protocol "S3 student pretrain then professional calibration; professional outer speech test" \
-  --output-name s3_outer_summary.json
+  --protocol "S0 professional-only; professional inner-dev; professional outer speech test" \
+  --output-name s0_outer_summary.json

@@ -6,11 +6,15 @@ promptness means the interpretation was experienced as \emph{less} delayed. The
 aggregate target is their equal-weight mean, which produces .5-point increments.
 Both evaluators rated the full cohort independently after shared written instructions,
 example discussion, and a pilot calibration exercise; neither served as adjudicator.
+The scoring platform enforced LQ$=0\Rightarrow$EXP$=0$ and promptness$=0$; such
+lower-bound triples therefore reflect a rubric constraint rather than independent
+dimension-level decisions.
 Table~\ref{tab:retained-grid} reproduces the retained anchor criteria.
 
 \begin{table}[h]
 \centering
 \scriptsize
+\setlength{\tabcolsep}{2pt}
 \caption{Retained segment-level rubric definition. Individual evaluators use the integer anchors 0--3; .5-point values occur only in the two-rater mean target.}
 \label{tab:retained-grid}
 \begin{tabular}{p{.25\columnwidth}p{.66\columnwidth}}
@@ -22,9 +26,16 @@ EXP & 3: fluent, idiomatic; minor errors only. 2: generally fluent with noticeab
 Promptness\newline (archived label: LAT) & 3: low perceived lag; well synchronized. 2: occasional lag; manageable. 1: frequent noticeable lag; disjointed flow. 0: severe persistent lag; difficult to follow. \\
 \bottomrule
 \end{tabular}
+\setlength{\tabcolsep}{6pt}
 \end{table}
 
 \section*{Appendix B: Additional Audit Results}
+
+\paragraph{Platform-rule audit.} Among the $2\times\CohortN=1{,}244$
+individual evaluator--segment score triples in the retained cohort, 17 have
+LQ$=0$. All 17 also have EXP$=0$ and promptness$=0$, with no violation of the
+platform rule; all 17 were assigned by R05. Thus, 17 of the \CohortN\ aggregate
+segments (2.7\%) contain one platform-constrained lower-bound triple.
 
 \paragraph{Rater agreement.} On all \CohortN\ jointly rated segments, R05 assigned scores
 $\{0,1,2,3\}$ with counts $(\RZeroCount,\ROneCount,\RTwoCount,\RThreeCount)$ and R06 with counts
@@ -136,21 +147,75 @@ They were selected post hoc under the documented purposive rule in the
 documented case-selection rule; comments are translated and shortened, and are not
 model inputs. They illustrate how evaluators articulated their ratings, but do not independently validate the promptness construct.
 
-\begin{table}[h]
+\begin{center}
+\begin{minipage}{\columnwidth}
 \centering
-\small
+\scriptsize
 \renewcommand{\arraystretch}{1.12}
 \setlength{\tabcolsep}{2pt}
-\caption{Observed professional-comment examples. These are illustrations, not additional rubric anchors or quantitative evidence.}
+\captionof{table}{Observed professional-comment examples. These are illustrations, not additional rubric anchors or quantitative evidence.}
 \label{tab:case-pairs}
-\begin{tabular}{p{.10\textwidth}p{.49\textwidth}p{.33\textwidth}}
+\begin{tabular}{p{.14\columnwidth}p{.76\columnwidth}}
 \toprule
-Case & Source and interpreted output & Scores and professional comment \\
+Case & Observed example \\
 \midrule
-Positive & \textbf{Source:} An English conditional explains that many children in orphanages are not orphans, so ``orphanage'' is a euphemistic label. \newline \textbf{Interpreted output:} The Chinese output retains both the condition and conclusion. & Promptness score: $3.0$; predicted promptness: $3.05$; segment-onset delay: 2.00~s. \newline ``Fast, steady, complete, and idiomatic.'' \\
-Negative & \textbf{Source:} An English segment states that a Mars trip requires an Earth--Mars alignment launch window. \newline \textbf{Interpreted output:} The Chinese output gives an incorrect distance and omits the launch-window condition. & Promptness score: $0.5$; predicted promptness: $2.35$; segment-onset delay: 2.44~s. \newline ``Limited information capture; unable to form complete sentences.'' \\
+Positive & \textbf{Source:} An English conditional explains that many children in orphanages are not orphans, so ``orphanage'' is a euphemistic label. \newline \textbf{Interpreted output:} The Chinese output retains both the condition and conclusion. \newline \textbf{Scores:} Promptness $3.0$; predicted promptness $3.05$; segment-onset delay 2.00~s. \newline \textbf{Comment:} ``Fast, steady, complete, and idiomatic.'' \\
+Negative & \textbf{Source:} An English segment states that a Mars trip requires an Earth--Mars alignment launch window. \newline \textbf{Interpreted output:} The Chinese output gives an incorrect distance and omits the launch-window condition. \newline \textbf{Scores:} Promptness $0.5$; predicted promptness $2.35$; segment-onset delay 2.44~s. \newline \textbf{Comment:} ``Limited information capture; unable to form complete sentences.'' \\
 \bottomrule
 \end{tabular}
 \renewcommand{\arraystretch}{1}
 \setlength{\tabcolsep}{6pt}
-\end{table}
+\end{minipage}
+\end{center}
+
+\section*{Appendix D: Quality Estimator Model Card}
+
+The upstream estimator maps a complete ordered pair of source and
+interpreted-output transcripts to two continuous quality outputs. It does not
+use audio, delay, professional scores, rater/interpreter identity, or a
+reference translation, and it is a post-hoc segment model rather than a
+streaming system.
+
+\begin{center}
+\begin{minipage}{\columnwidth}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2pt}
+\captionof{table}{Configuration of the cross-fitted quality estimator used in the reported runs.}
+\label{tab:model-card}
+\begin{tabular}{p{.28\columnwidth}p{.63\columnwidth}}
+\toprule
+Item & Formal configuration \\
+\midrule
+Backbone & \texttt{Unbabel/wmt22-cometkiwi-da}; \texttt{unbabel-comet==2.2.4} loader \\
+Input & Source as sequence A, interpreted output as sequence B; maximum 512 tokens; max-length padding and truncation \\
+Tokenizer & Checkpoint tokenizer when available; otherwise \texttt{microsoft/infoxlm-large} \texttt{XLMRobertaTokenizer}. Logs do not preserve which branch or the checkpoint revision hash. \\
+Representation & First-token (CLS) pooling; two independent linear residual heads added to fold-training LQ/EXP means \\
+Trainable parameters & Two heads only. The instantiated LoRA adapters (rank 8, $\alpha=16$, dropout .1, query/value targets) and backbone remain frozen. \\
+Optimization & AdamW; head LR $5\times10^{-4}$; weight decay .01; batch 16; 10 fixed epochs; no scheduler or early stopping; gradient norm .5; CUDA mixed precision when available \\
+Selection and seeds & Maximum development Pearson(LQ)+Pearson(EXP); seeds 20260718, 20260719, and 20260720 \\
+\bottomrule
+\end{tabular}
+\setlength{\tabcolsep}{6pt}
+\end{minipage}
+\end{center}
+
+For batch predictions $\hat q_L,\hat q_E$ and targets $q_L,q_E$, training
+minimizes
+\begin{equation}
+\begin{aligned}
+\mathcal L={}&\mathrm{MSE}(\hat q_L,q_L)+1.7\,\mathrm{MSE}(\hat q_E,q_E)\\
+&+0.2\,\mathcal L_{\mathrm{var}}\\
+&+0.25[1-r(\hat q_L,q_L)]\\
+&+0.25[1-r(\hat q_E,q_E)].
+\end{aligned}
+\end{equation}
+The variance term matches prediction variance to target variance using a
+rolling 64-example buffer and a .15 target-variance floor. These anti-collapse
+weights were fixed across reported runs; the archive does not preserve a
+separate search that selected them. Development labels are rounded to the
+nearest .5 only in the historical validation routine, whose predictions are
+clamped to $[-1,4]$ for checkpoint-selection correlations; raw exported quality
+predictions are unchanged. Transcript production/editing provenance,
+historical truncation counts, exact hardware, and per-fold training time are
+not preserved.
